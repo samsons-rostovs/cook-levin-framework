@@ -52,6 +52,7 @@ class TuringMachineSimulator:
                 head_position,
                 step
             )
+        return current_state
 
     def add_configuration(
             self,
