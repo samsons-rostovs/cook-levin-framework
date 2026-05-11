@@ -2,6 +2,7 @@ import sys
 from examples.simple_machine import simple_machine
 from tm.simulator import TuringMachineSimulator
 from visualization.tape_renderer import render_configuration
+from reduction.tableau import ComputationTableau
 
 
 simulator = TuringMachineSimulator(simple_machine)
@@ -11,6 +12,13 @@ if len(sys.argv) < 2:
 
 input_word = sys.argv[1]
 final_state = simulator.simulate(input_word)
+
+tableau = ComputationTableau(
+    simulator.get_history()
+)
+print("\nComputation Tableau:\n")
+for row in tableau.generate_rows():
+    print(row)
 
 for configuration in simulator.get_history():
     print(render_configuration(configuration))
@@ -23,3 +31,5 @@ elif final_state == simple_machine.reject_state:
     print("Input rejected")
 else:
     print("Machine halted")
+    
+    
