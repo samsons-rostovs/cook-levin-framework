@@ -1,5 +1,6 @@
 from tm.configuration import Configuration
 from tm.machine import TuringMachine
+from tm.execution_step import ExecutionStep
 
 
 class TuringMachineSimulator:
@@ -46,11 +47,19 @@ class TuringMachineSimulator:
                 head_position = max(0, head_position - 1)
             
             step += 1
+
+            execution_step = ExecutionStep(
+                read_symbol=current_symbol,
+                write_symbol=transition.write_symbol,
+                move_direction=transition.move_direction,
+                next_state=transition.next_state
+            )
             self.add_configuration(
                 current_state,
                 tape,
                 head_position,
-                step
+                step,
+                execution_step
             )
         return current_state
 
@@ -59,14 +68,16 @@ class TuringMachineSimulator:
             state: str,
             tape: list[str],
             head_position: int,
-            step: int
+            step: int,
+            execution_step: ExecutionStep | None = None
     ) -> None:
         
         configuration = Configuration(
             state=state,
             tape=tape.copy(),
             head_position=head_position,
-            step=step
+            step=step,
+            execution_step=execution_step
         )
 
         self.history.append(configuration)

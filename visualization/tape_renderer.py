@@ -16,9 +16,18 @@ def render_configuration(configuration: Configuration) -> str:
 
     head_string = " ".join(head_line)
 
-    return (
+    output = (
         f"Step {configuration.step}\n"
         f"State: {configuration.state}\n"
         f"{tape_string}\n"
         f"{head_string}\n"
     )
+
+    if configuration.execution_step is not None:
+        output += (
+            f"Read: {configuration.execution_step.read_symbol}\n"
+            f"Write: {configuration.execution_step.write_symbol}\n"
+            f"Move: {configuration.execution_step.move_direction}\n"
+            f"Next state: {configuration.execution_step.next_state}\n"
+        )
+    return output
