@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cook-levin-framework"
+version = "0.2.0"
+description = "Educational framework for Turing machines and Cook–Levin SAT encodings"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+[project.optional-dependencies]
+sat = ["python-sat>=1.8"]
+web = ["streamlit>=1.30"]
+all = ["python-sat>=1.8", "streamlit>=1.30"]
+
+[project.scripts]
+cook-levin = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tm*", "sat*", "reduction*", "examples*", "visualization*", "web*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
